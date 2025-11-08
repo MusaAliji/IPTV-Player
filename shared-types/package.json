@@ -2,8 +2,16 @@
   "name": "@iptv-player/shared-types",
   "version": "1.0.0",
   "description": "Shared TypeScript types, constants, and utilities for IPTV Player",
+  "type": "module",
   "main": "dist/index.js",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "build": "tsc",
     "test": "jest",
