@@ -12,19 +12,32 @@
       "types": "./dist/index.d.ts"
     }
   },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "scripts": {
     "build": "tsc",
+    "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MusaAliji/IPTV-Player.git",
+    "directory": "shared-types"
   },
   "keywords": [
     "iptv",
     "types",
     "typescript",
-    "shared"
+    "shared",
+    "streaming",
+    "video"
   ],
-  "author": "",
+  "author": "MusaAliji",
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",
