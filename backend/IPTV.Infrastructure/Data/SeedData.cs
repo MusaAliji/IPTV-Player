@@ -235,11 +235,33 @@ public static class SeedData
         await context.SaveChangesAsync();
     }
 
-    // Simple password hashing for seed data (in production, use AuthService)
+    // Password hashing for seed data - matches AuthService implementation
     private static string HashPassword(string password)
     {
-        // This is a simplified version for seed data
-        // In production, use the AuthService.HashPassword method
-        return Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes($"SEED_{password}"));
+        // Using PBKDF2 with HMAC-SHA256 - same as AuthService
+        const int iterations = 10000;
+        const int hashSize = 32; // 256 bits
+        const int saltSize = 16; // 128 bits
+
+        // Generate a random salt
+        using var rng = System.Security.Cryptography.RandomNumberGenerator.Create();
+        var salt = new byte[saltSize];
+        rng.GetBytes(salt);
+
+        // Hash the password
+        using var pbkdf2 = new System.Security.Cryptography.Rfc2898DeriveBytes(
+            password,
+            salt,
+            iterations,
+            System.Security.Cryptography.HashAlgorithmName.SHA256);
+        var hash = pbkdf2.GetBytes(hashSize);
+
+        // Combine salt and hash
+        var hashBytes = new byte[saltSize + hashSize];
+        Array.Copy(salt, 0, hashBytes, 0, saltSize);
+        Array.Copy(hash, 0, hashBytes, saltSize, hashSize);
+
+        // Convert to base64 for storage
+        return Convert.ToBase64String(hashBytes);
     }
 }
