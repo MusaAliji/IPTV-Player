@@ -46,6 +46,13 @@
 - ✅ LINQ performance issues in AnalyticsService fixed
 - ✅ Authentication test endpoint added for debugging
 
+### Unit Testing (NEW!)
+- ✅ **Test Project Created** - IPTV.Tests.Unit
+- ✅ **xUnit, Moq, FluentAssertions** configured
+- ✅ **40 Tests Implemented** (ContentService, AuthService, AnalyticsService)
+- ⏳ **40+ Tests Remaining** (EPGService, RecommendationService, Controllers)
+- 🎯 **Target: 100% Code Coverage**
+
 ---
 
 ## 🔧 REQUIRED ACTIONS BEFORE TESTING
@@ -618,6 +625,60 @@ Use this template to document your testing:
 ### Notes
 [Any observations]
 ```
+
+---
+
+## 🧪 UNIT TESTING COMMANDS (NEW!)
+
+### Run All Unit Tests
+
+```bash
+# Navigate to test project
+cd backend/IPTV.Tests.Unit
+
+# Run all tests
+dotnet test
+
+# Run with detailed output
+dotnet test --logger "console;verbosity=detailed"
+
+# Run with code coverage
+dotnet test --collect:"XPlat Code Coverage"
+```
+
+### Check Test Results
+
+```bash
+# Expected output:
+# Passed!  - Failed:     0, Passed:    40, Skipped:     0, Total:    40
+```
+
+### Generate Coverage Report
+
+```bash
+# Install report generator (one time only)
+dotnet tool install -g dotnet-reportgenerator-globaltool
+
+# Generate HTML coverage report
+reportgenerator -reports:"TestResults/**/coverage.cobertura.xml" -targetdir:"TestResults/CoverageReport" -reporttypes:Html
+
+# Open report in browser
+# Navigate to: TestResults/CoverageReport/index.html
+```
+
+### Current Test Status
+
+| Component | Tests | Coverage | Status |
+|-----------|-------|----------|--------|
+| ContentService | 13 | 100% | ✅ |
+| AuthService | 16 | 100% | ✅ |
+| AnalyticsService | 11 | 100% | ✅ |
+| EPGService | 0 | 0% | ⏳ TODO |
+| RecommendationService | 0 | 0% | ⏳ TODO |
+| Controllers | 0 | 0% | ⏳ TODO |
+| **TOTAL** | **40/80+** | **~50%** | 🔄 **In Progress** |
+
+**📚 Full Testing Guide:** See `PHASE_2_UNIT_TESTING_GUIDE.md`
 
 ---
 
