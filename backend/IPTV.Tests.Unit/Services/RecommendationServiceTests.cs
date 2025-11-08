@@ -146,7 +146,7 @@ public class RecommendationServiceTests
 
         // Assert
         result.Should().HaveCount(count);
-        result.First().Rating.Should().BeGreaterOrEqualTo(result.Last().Rating); // Should be ordered by rating
+        (result.First().Rating ?? 0).Should().BeGreaterOrEqualTo(result.Last().Rating ?? 0); // Should be ordered by rating
     }
 
     [Fact]
@@ -240,7 +240,7 @@ public class RecommendationServiceTests
         recommendations.Should().NotBeEmpty();
         recommendations.Should().NotContain(c => c.Id == 1); // Should not include watched
         recommendations.Should().OnlyContain(c => c.Genre == genre);
-        recommendations.First().Rating.Should().BeGreaterOrEqualTo(recommendations.Last().Rating); // Ordered by rating
+        (recommendations.First().Rating ?? 0).Should().BeGreaterOrEqualTo(recommendations.Last().Rating ?? 0); // Ordered by rating
     }
 
     [Fact]

@@ -166,7 +166,7 @@ public class EPGServiceTests
         var newProgram = TestDataBuilder.CreateTestEPGProgram(0);
         newProgram.CreatedAt = default;
         _epgProgramRepositoryMock.Setup(r => r.AddAsync(It.IsAny<EPGProgram>())).Returns(Task.CompletedTask);
-        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).Returns(Task.CompletedTask);
+        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
 
         // Act
         var result = await _epgService.CreateProgramAsync(newProgram);
@@ -184,7 +184,7 @@ public class EPGServiceTests
         var existingProgram = TestDataBuilder.CreateTestEPGProgram(1);
         existingProgram.Title = "Updated Title";
         _epgProgramRepositoryMock.Setup(r => r.Update(It.IsAny<EPGProgram>()));
-        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).Returns(Task.CompletedTask);
+        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
 
         // Act
         await _epgService.UpdateProgramAsync(existingProgram);
@@ -202,7 +202,7 @@ public class EPGServiceTests
         var existingProgram = TestDataBuilder.CreateTestEPGProgram(programId);
         _epgProgramRepositoryMock.Setup(r => r.GetByIdAsync(programId)).ReturnsAsync(existingProgram);
         _epgProgramRepositoryMock.Setup(r => r.Remove(It.IsAny<EPGProgram>()));
-        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).Returns(Task.CompletedTask);
+        _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
 
         // Act
         await _epgService.DeleteProgramAsync(programId);
