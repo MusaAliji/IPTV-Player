@@ -79,7 +79,15 @@ public class UserControllerTests
     [Fact]
     public async Task GetProfile_WhenNoUserIdClaim_ShouldReturnUnauthorized()
     {
-        // Arrange - No claims setup
+        // Arrange - Setup controller context with no claims
+        var claims = new List<Claim>(); // Empty claims list
+        var identity = new ClaimsIdentity(claims);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = claimsPrincipal }
+        };
 
         // Act
         var result = await _controller.GetProfile();

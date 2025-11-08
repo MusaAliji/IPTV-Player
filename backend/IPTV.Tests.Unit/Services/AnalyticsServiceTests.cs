@@ -53,6 +53,7 @@ public class AnalyticsServiceTests
     {
         // Arrange
         var viewing = TestDataBuilder.CreateTestViewingHistory();
+        viewing.EndTime = null; // Start with null EndTime for incomplete viewing
         _viewingRepositoryMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(viewing);
         _unitOfWorkMock.Setup(u => u.SaveChangesAsync()).ReturnsAsync(1);
 
@@ -111,17 +112,21 @@ public class AnalyticsServiceTests
         {
             TestDataBuilder.CreateTestViewingHistory(1, 1, 1),
             TestDataBuilder.CreateTestViewingHistory(2, 1, 2),
+            TestDataBuilder.CreateTestViewingHistory(4, 1, 3),
             TestDataBuilder.CreateTestViewingHistory(3, 1, 1)
         };
         var content1 = TestDataBuilder.CreateTestContent(1);
         content1.Genre = "Action";
         var content2 = TestDataBuilder.CreateTestContent(2);
+        var content3 = TestDataBuilder.CreateTestContent(3);
+        content3.Genre = "Action";
         content2.Genre = "Comedy";
 
         _viewingRepositoryMock.Setup(r => r.FindAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ViewingHistory, bool>>>()))
             .ReturnsAsync(viewingHistory);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(content1);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(content2);
+        _contentRepositoryMock.Setup(r => r.GetByIdAsync(3)).ReturnsAsync(content3);
 
         // Act
         var result = await _analyticsService.GetViewingStatsByGenreAsync(1);
@@ -150,6 +155,7 @@ public class AnalyticsServiceTests
         _viewingRepositoryMock.Setup(r => r.GetAllAsync()).ReturnsAsync(allHistory);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(content1);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(content2);
+        _contentRepositoryMock.Setup(r => r.GetByIdAsync(3)).ReturnsAsync(content3);
 
         // Act
         var result = await _analyticsService.GetMostWatchedContentAsync(10);
@@ -217,11 +223,14 @@ public class AnalyticsServiceTests
 
         var content1 = TestDataBuilder.CreateTestContent(1);
         var content2 = TestDataBuilder.CreateTestContent(2);
+        var content3 = TestDataBuilder.CreateTestContent(3);
+        content3.Genre = "Action";
 
         _viewingRepositoryMock.Setup(r => r.FindAsync(It.IsAny<System.Linq.Expressions.Expression<Func<ViewingHistory, bool>>>()))
             .ReturnsAsync(incompleteHistory);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(1)).ReturnsAsync(content1);
         _contentRepositoryMock.Setup(r => r.GetByIdAsync(2)).ReturnsAsync(content2);
+        _contentRepositoryMock.Setup(r => r.GetByIdAsync(3)).ReturnsAsync(content3);
 
         // Act
         var result = await _analyticsService.GetContinueWatchingAsync(1);

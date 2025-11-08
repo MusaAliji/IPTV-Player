@@ -71,7 +71,16 @@ public class AnalyticsControllerTests
     [Fact]
     public async Task StartViewing_WhenNoUserClaim_ShouldReturnUnauthorized()
     {
-        // Arrange - No claims setup
+        // Arrange - Setup controller context with no claims
+        var claims = new List<Claim>(); // Empty claims list
+        var identity = new ClaimsIdentity(claims);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = claimsPrincipal }
+        };
+
         var request = new StartViewingRequest
         {
             ContentId = 1
@@ -133,7 +142,15 @@ public class AnalyticsControllerTests
     [Fact]
     public async Task GetViewingHistory_WhenNoUserClaim_ShouldReturnUnauthorized()
     {
-        // Arrange - No claims setup
+        // Arrange - Setup controller context with no claims
+        var claims = new List<Claim>(); // Empty claims list
+        var identity = new ClaimsIdentity(claims);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = claimsPrincipal }
+        };
 
         // Act
         var result = await _controller.GetViewingHistory();
@@ -278,7 +295,15 @@ public class AnalyticsControllerTests
     [Fact]
     public async Task GetRecommendations_WhenNoUserClaim_ShouldReturnUnauthorized()
     {
-        // Arrange - No claims setup
+        // Arrange - Setup controller context with no claims
+        var claims = new List<Claim>(); // Empty claims list
+        var identity = new ClaimsIdentity(claims);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = claimsPrincipal }
+        };
 
         // Act
         var result = await _controller.GetRecommendations();
@@ -329,7 +354,15 @@ public class AnalyticsControllerTests
     [Fact]
     public async Task GetRecommendedChannels_WhenNoUserClaim_ShouldReturnUnauthorized()
     {
-        // Arrange - No claims setup
+        // Arrange - Setup controller context with no claims
+        var claims = new List<Claim>(); // Empty claims list
+        var identity = new ClaimsIdentity(claims);
+        var claimsPrincipal = new ClaimsPrincipal(identity);
+
+        _controller.ControllerContext = new ControllerContext
+        {
+            HttpContext = new DefaultHttpContext { User = claimsPrincipal }
+        };
 
         // Act
         var result = await _controller.GetRecommendedChannels();
