@@ -50,20 +50,24 @@ dotnet restore
 dotnet build
 ```
 
-#### Step 3: Create database migration
+#### Step 3: Create the database
 
+**The migration has already been created!** Choose one of these methods:
+
+**Method A: Using Entity Framework (Recommended)**
 ```bash
 cd IPTV.API
-dotnet ef migrations add InitialCreate --project ../IPTV.Infrastructure --startup-project .
+dotnet ef database update
 ```
 
-#### Step 4: Apply migration to create database
+**Method B: Using SQL Script (Manual)**
+- Open SQL Server Management Studio or Azure Data Studio
+- Connect to your SQL Server instance
+- Open and execute: `IPTV.Infrastructure/Migrations/InitialCreate.sql`
 
-```bash
-dotnet ef database update --project ../IPTV.Infrastructure --startup-project .
-```
+Both methods will create a SQL Server database named `IPTVDb` with all tables.
 
-This will create a SQL Server database named `IPTVDb` with all tables.
+**See `IPTV.Infrastructure/Migrations/README.md` for detailed migration documentation.**
 
 #### Step 5: Run the API
 
@@ -159,10 +163,11 @@ After completing Phase 1:
 - [x] Database context created
 - [x] ContentController with GET endpoints
 - [x] CORS and Swagger configured
-- [ ] Database migration created (run locally)
-- [ ] Database created (run locally)
+- [x] Database migration created (InitialCreate)
+- [x] SQL script provided for manual setup
+- [ ] Database applied locally (run `dotnet ef database update`)
 - [ ] API tested with real data
 
 ---
 
-**Note:** All code files have been created. You just need to run the .NET commands on your local machine to restore packages, create migrations, and run the API.
+**Note:** All code files and migrations have been created. You just need to run `dotnet restore`, apply the database migration, and run the API on your local machine.
