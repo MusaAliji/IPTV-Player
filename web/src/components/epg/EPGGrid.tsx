@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
-import type { EPGProgram, Channel } from '@iptv-player/shared-types';
-import { formatEPGTime } from '@iptv-player/shared-types';
+import type { EPGProgram, Channel } from '@muski/iptv-shared-types';
+import { formatEPGTime } from '@muski/iptv-shared-types';
 import './EPGGrid.css';
 
 interface EPGGridProps {

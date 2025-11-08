@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { Content, Channel } from '@iptv-player/shared-types';
+import type { Content, Channel } from '@muski/iptv-shared-types';
 
 interface ContentState {
   contents: Content[];

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import type { Channel } from '@iptv-player/shared-types';
+import type { Channel } from '@muski/iptv-shared-types';
 import { contentService } from '@services/contentService';
 import { usePlayerStore } from '@store/usePlayerStore';
 import { useContentStore } from '@store/useContentStore';

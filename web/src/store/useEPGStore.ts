@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import type { EPGProgram, EPGSchedule } from '@iptv-player/shared-types';
+import type { EPGProgram, EPGSchedule } from '@muski/iptv-shared-types';
 
 interface EPGState {
   programs: EPGProgram[];

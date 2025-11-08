@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { EPGProgram } from '@iptv-player/shared-types';
+import type { EPGProgram } from '@muski/iptv-shared-types';
 import { epgService } from '@services/epgService';
 import { contentService } from '@services/contentService';
 import { useEPGStore } from '@store/useEPGStore';

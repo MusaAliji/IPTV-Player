@@ -2,8 +2,8 @@ import { apiService } from './api';
 import type {
   EPGProgram,
   EPGSchedule,
-} from '@iptv-player/shared-types';
-import { API_ENDPOINTS } from '@iptv-player/shared-types';
+} from '@muski/iptv-shared-types';
+import { API_ENDPOINTS } from '@muski/iptv-shared-types';
 
 export const epgService = {
   async getProgramsByChannel(

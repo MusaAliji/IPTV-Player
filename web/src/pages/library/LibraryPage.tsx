@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import type { Content } from '@iptv-player/shared-types';
-import { ContentType } from '@iptv-player/shared-types';
+import type { Content } from '@muski/iptv-shared-types';
+import { ContentType } from '@muski/iptv-shared-types';
 import { contentService } from '@services/contentService';
 import { useContentStore } from '@store/useContentStore';
 import ContentCard from '@components/content/ContentCard';

@@ -6,8 +6,8 @@ import type {
   PaginatedChannelResponse,
   ContentFilters,
   ChannelFilters,
-} from '@iptv-player/shared-types';
-import { API_ENDPOINTS } from '@iptv-player/shared-types';
+} from '@muski/iptv-shared-types';
+import { API_ENDPOINTS } from '@muski/iptv-shared-types';
 
 export const contentService = {
   // Content operations

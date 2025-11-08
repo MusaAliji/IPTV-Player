@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Channel } from '@iptv-player/shared-types';
+import type { Channel } from '@muski/iptv-shared-types';
 import './ChannelList.css';
 
 interface ChannelListProps {

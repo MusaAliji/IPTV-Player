@@ -16,7 +16,7 @@ MODE=${1:-}
 if [ -z "$MODE" ]; then
     echo -e "${BLUE}Current shared-types configuration:${NC}"
     if [ -f "package.json" ]; then
-        node -p "JSON.stringify(require('./package.json').dependencies['@iptv-player/shared-types'], null, 2)"
+        node -p "JSON.stringify(require('./package.json').dependencies['@muski/iptv-shared-types'], null, 2)"
     fi
     echo ""
     echo "Usage: ./switch-shared-types.sh [local|published]"
@@ -42,7 +42,7 @@ case $MODE in
         (cd ../shared-types && npm run build)
 
         # Uninstall current
-        npm uninstall @iptv-player/shared-types 2>/dev/null || true
+        npm uninstall @muski/iptv-shared-types 2>/dev/null || true
 
         # Install local
         npm install ../shared-types
@@ -63,14 +63,14 @@ case $MODE in
         fi
 
         # Uninstall current
-        npm uninstall @iptv-player/shared-types 2>/dev/null || true
+        npm uninstall @muski/iptv-shared-types 2>/dev/null || true
 
         # Install published with alias
         echo -e "${BLUE}📥 Installing $PACKAGE_NAME...${NC}"
-        npm install @iptv-player/shared-types@npm:$PACKAGE_NAME@latest
+        npm install @muski/iptv-shared-types@npm:$PACKAGE_NAME@latest
 
         echo -e "${GREEN}✅ Switched to published package: $PACKAGE_NAME${NC}"
-        echo -e "${YELLOW}Update with: npm update @iptv-player/shared-types${NC}"
+        echo -e "${YELLOW}Update with: npm update @muski/iptv-shared-types${NC}"
         ;;
 
     *)
@@ -82,4 +82,4 @@ esac
 
 echo ""
 echo -e "${BLUE}Current configuration:${NC}"
-node -p "'@iptv-player/shared-types: ' + JSON.stringify(require('./package.json').dependencies['@iptv-player/shared-types'])"
+node -p "'@muski/iptv-shared-types: ' + JSON.stringify(require('./package.json').dependencies['@muski/iptv-shared-types'])"

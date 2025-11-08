@@ -1,6 +1,6 @@
 import React from 'react';
-import type { Content } from '@iptv-player/shared-types';
-import { formatDuration } from '@iptv-player/shared-types';
+import type { Content } from '@muski/iptv-shared-types';
+import { formatDuration } from '@muski/iptv-shared-types';
 import './ContentCard.css';
 
 interface ContentCardProps {

@@ -1,6 +1,6 @@
 {
-  "name": "@iptv-player/shared-types",
-  "version": "1.0.0",
+  "name": "@muski/iptv-shared-types",
+  "version": "1.0.3",
   "description": "Shared TypeScript types, constants, and utilities for IPTV Player",
   "type": "module",
   "main": "dist/index.js",
