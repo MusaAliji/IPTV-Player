@@ -12,7 +12,19 @@ import { API_ENDPOINTS } from '@muski/iptv-shared-types';
 export const contentService = {
   // Content operations
   async getAllContent(filters?: ContentFilters): Promise<PaginatedContentResponse> {
-    return apiService.get<PaginatedContentResponse>(API_ENDPOINTS.CONTENT.BASE, filters);
+    // Backend returns Content[] directly, not a paginated response
+    const response = await apiService.get<Content[]>(API_ENDPOINTS.CONTENT.BASE, filters);
+
+    // Transform to paginated response structure
+    const limit = filters?.limit || response.length;
+    const offset = filters?.offset || 0;
+    return {
+      items: response,
+      total: response.length,
+      limit,
+      offset,
+      hasMore: offset + limit < response.length,
+    };
   },
 
   async getContentById(id: number): Promise<Content> {
