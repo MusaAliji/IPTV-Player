@@ -23,17 +23,36 @@ export const contentService = {
     return apiService.get<Content[]>(API_ENDPOINTS.CONTENT.SEARCH, { q: query });
   },
 
-  // Channel operations
+  // Channel operations (LiveTV content)
+  // Note: Channels are Content items with type='LiveTV' in the backend
   async getAllChannels(filters?: ChannelFilters): Promise<PaginatedChannelResponse> {
-    return apiService.get<PaginatedChannelResponse>(API_ENDPOINTS.CHANNELS.BASE, filters);
+    // Map to content endpoint with type filter
+    const response = await apiService.get<Content[]>(
+      API_ENDPOINTS.CONTENT.BY_TYPE('LiveTV'),
+      filters
+    );
+    // Transform Content[] to match expected channel response structure
+    const limit = filters?.limit || response.length;
+    const offset = filters?.offset || 0;
+    return {
+      items: response as unknown as Channel[],
+      total: response.length,
+      limit,
+      offset,
+      hasMore: offset + limit < response.length,
+    };
   },
 
   async getChannelById(id: number): Promise<Channel> {
-    return apiService.get<Channel>(API_ENDPOINTS.CHANNELS.BY_ID(id));
+    // Channels are just content items, so use content endpoint
+    const content = await apiService.get<Content>(API_ENDPOINTS.CONTENT.BY_ID(id));
+    return content as unknown as Channel;
   },
 
   async getLiveChannels(): Promise<Channel[]> {
-    return apiService.get<Channel[]>(API_ENDPOINTS.CHANNELS.LIVE);
+    // Get all LiveTV type content
+    const response = await apiService.get<Content[]>(API_ENDPOINTS.CONTENT.BY_TYPE('LiveTV'));
+    return response as unknown as Channel[];
   },
 
   // Streaming

@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@muski/iptv-shared-types": "^1.0.3",
+    "@muski/iptv-shared-types": "file:../shared-types",
     "@tanstack/react-query": "^5.90.7",
     "axios": "^1.13.2",
     "hls.js": "^1.6.14",
