@@ -3,6 +3,6 @@
  * Export all utilities from a single entry point
  */
 
-export * from './validators';
-export * from './formatters';
-export * from './http-client';
+export * from './validators.js';
+export * from './formatters.js';
+export * from './http-client.js';

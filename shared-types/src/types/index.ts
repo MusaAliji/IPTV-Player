@@ -3,7 +3,7 @@
  * Export all types from a single entry point
  */
 
-export * from './content.types';
-export * from './epg.types';
-export * from './user.types';
-export * from './streaming.types';
+export * from './content.types.js';
+export * from './epg.types.js';
+export * from './user.types.js';
+export * from './streaming.types.js';
