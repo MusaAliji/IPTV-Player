@@ -7,7 +7,7 @@ import type { AxiosInstance } from 'axios';
 const getBaseURL = (): string => {
   // In production build, use the full API URL from environment
   if (import.meta.env.PROD) {
-    return import.meta.env.VITE_API_URL || 'https://localhost:58564';
+    return import.meta.env.VITE_API_URL || 'https://localhost:5001';
   }
   // In development, use the proxy (configured in vite.config.ts)
   return '/api';

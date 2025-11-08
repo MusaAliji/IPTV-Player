@@ -6,7 +6,7 @@ import path from 'path'
 export default defineConfig(({ mode }) => {
   // Load environment variables based on mode (development/production)
   const env = loadEnv(mode, process.cwd(), '')
-  const apiUrl = env.VITE_API_URL || 'https://localhost:58564'
+  const apiUrl = env.VITE_API_URL || 'https://localhost:5001'
 
   // Log the API URL being used for transparency
   console.log(`\n🚀 Vite running in ${mode} mode`)
