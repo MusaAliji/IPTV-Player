@@ -8,6 +8,11 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const apiUrl = env.VITE_API_URL || 'https://localhost:58564'
 
+  // Log the API URL being used for transparency
+  console.log(`\n🚀 Vite running in ${mode} mode`)
+  console.log(`📡 API URL: ${apiUrl}`)
+  console.log(`🔗 Proxy: /api -> ${apiUrl}\n`)
+
   return {
     plugins: [react()],
     resolve: {
