@@ -41,6 +41,16 @@ public static class TestDataBuilder
 
     public static Channel CreateTestChannel(int id = 1, string name = "Test Channel")
     {
+        return CreateTestChannel(id, name, true);
+    }
+
+    public static Channel CreateTestChannel(int id, bool isActive)
+    {
+        return CreateTestChannel(id, $"Test Channel {id}", isActive);
+    }
+
+    public static Channel CreateTestChannel(int id, string name, bool isActive)
+    {
         return new Channel
         {
             Id = id,
@@ -50,7 +60,7 @@ public static class TestDataBuilder
             ChannelNumber = id,
             Category = "News",
             Language = "English",
-            IsActive = true,
+            IsActive = isActive,
             CreatedAt = DateTime.UtcNow,
             UpdatedAt = DateTime.UtcNow
         };
@@ -58,14 +68,19 @@ public static class TestDataBuilder
 
     public static EPGProgram CreateTestEPGProgram(int id = 1, int channelId = 1)
     {
+        return CreateTestEPGProgram(id, channelId, DateTime.UtcNow, DateTime.UtcNow.AddHours(1));
+    }
+
+    public static EPGProgram CreateTestEPGProgram(int id, int channelId, DateTime startTime, DateTime endTime)
+    {
         return new EPGProgram
         {
             Id = id,
             ChannelId = channelId,
             Title = $"Test Program {id}",
             Description = "Test Program Description",
-            StartTime = DateTime.UtcNow,
-            EndTime = DateTime.UtcNow.AddHours(1),
+            StartTime = startTime,
+            EndTime = endTime,
             Category = "Entertainment",
             Rating = "PG",
             CreatedAt = DateTime.UtcNow
@@ -127,5 +142,17 @@ public static class TestDataBuilder
             channels.Add(CreateTestChannel(i, $"Channel {i}"));
         }
         return channels;
+    }
+
+    public static List<EPGProgram> CreateTestEPGProgramList(int count = 5, int channelId = 1)
+    {
+        var programs = new List<EPGProgram>();
+        for (int i = 1; i <= count; i++)
+        {
+            var startTime = DateTime.UtcNow.AddHours(i);
+            var endTime = startTime.AddHours(1);
+            programs.Add(CreateTestEPGProgram(i, channelId, startTime, endTime));
+        }
+        return programs;
     }
 }
