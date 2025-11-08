@@ -1,6 +1,8 @@
 using IPTV.Core.Entities;
 using IPTV.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace IPTV.API.Controllers;
 
@@ -13,6 +15,26 @@ public class AuthController : ControllerBase
     public AuthController(IAuthService authService)
     {
         _authService = authService;
+    }
+
+    [HttpGet("test")]
+    [Authorize]
+    public ActionResult TestAuth()
+    {
+        var claims = User.Claims.Select(c => new { c.Type, c.Value }).ToList();
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        var username = User.FindFirst(ClaimTypes.Name)?.Value;
+        var role = User.FindFirst(ClaimTypes.Role)?.Value;
+
+        return Ok(new
+        {
+            message = "Authentication successful!",
+            userId = userId,
+            username = username,
+            role = role,
+            allClaims = claims,
+            isAuthenticated = User.Identity?.IsAuthenticated ?? false
+        });
     }
 
     [HttpPost("register")]
