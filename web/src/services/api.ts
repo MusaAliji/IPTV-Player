@@ -1,12 +1,24 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
 
+/**
+ * Get the base URL for API requests based on environment
+ */
+const getBaseURL = (): string => {
+  // In production build, use the full API URL from environment
+  if (import.meta.env.PROD) {
+    return import.meta.env.VITE_API_URL || 'https://localhost:58564';
+  }
+  // In development, use the proxy (configured in vite.config.ts)
+  return '/api';
+};
+
 class ApiService {
   private client: AxiosInstance;
 
   constructor() {
     this.client = axios.create({
-      baseURL: '/api',
+      baseURL: getBaseURL(),
       timeout: 30000,
       headers: {
         'Content-Type': 'application/json',
