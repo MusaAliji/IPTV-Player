@@ -41,18 +41,21 @@ public class RecommendationService : IRecommendationService
                        preferredGenres.Contains(c.Genre))
             .OrderByDescending(c => c.Rating ?? 0)
             .ThenByDescending(c => c.CreatedAt)
-            .Take(count);
+            .Take(count)
+            .ToList(); // Materialize to avoid stack overflow in Contains()
 
         // If not enough recommendations, add popular content
-        if (recommendations.Count() < count)
+        if (recommendations.Count < count)
         {
+            var recommendedIds = recommendations.Select(r => r.Id).ToList();
             var additional = allContent
                 .Where(c => !watchedContentIds.Contains(c.Id) &&
-                           !recommendations.Contains(c))
+                           !recommendedIds.Contains(c.Id))
                 .OrderByDescending(c => c.Rating ?? 0)
-                .Take(count - recommendations.Count());
+                .Take(count - recommendations.Count)
+                .ToList();
 
-            recommendations = recommendations.Concat(additional);
+            recommendations.AddRange(additional);
         }
 
         return recommendations;
@@ -125,18 +128,21 @@ public class RecommendationService : IRecommendationService
                        c.Category != null &&
                        preferredCategories.Contains(c.Category))
             .OrderBy(c => c.ChannelNumber)
-            .Take(count);
+            .Take(count)
+            .ToList(); // Materialize to avoid stack overflow in Contains()
 
         // If not enough recommendations, add popular active channels
-        if (recommendations.Count() < count)
+        if (recommendations.Count < count)
         {
+            var recommendedIds = recommendations.Select(r => r.Id).ToList();
             var additional = allChannels
                 .Where(c => !watchedChannelIds.Contains(c.Id) &&
-                           !recommendations.Contains(c))
+                           !recommendedIds.Contains(c.Id))
                 .OrderBy(c => c.ChannelNumber)
-                .Take(count - recommendations.Count());
+                .Take(count - recommendations.Count)
+                .ToList();
 
-            recommendations = recommendations.Concat(additional);
+            recommendations.AddRange(additional);
         }
 
         return recommendations;
