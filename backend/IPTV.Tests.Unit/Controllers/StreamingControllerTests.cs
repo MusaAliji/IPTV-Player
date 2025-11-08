@@ -5,6 +5,7 @@ using IPTV.Core.Interfaces;
 using IPTV.Tests.Unit.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Xunit;
 
 namespace IPTV.Tests.Unit.Controllers;
 

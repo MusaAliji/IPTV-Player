@@ -4,6 +4,7 @@ using IPTV.Core.Interfaces;
 using IPTV.Infrastructure.Services;
 using IPTV.Tests.Unit.Helpers;
 using Moq;
+using Xunit;
 
 namespace IPTV.Tests.Unit.Services;
 
