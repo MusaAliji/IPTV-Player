@@ -64,7 +64,11 @@ public class AnalyticsService : IAnalyticsService
     public async Task<Dictionary<string, int>> GetViewingStatsByGenreAsync(int userId)
     {
         var viewingHistory = await _unitOfWork.ViewingHistories.FindAsync(vh => vh.UserId == userId);
-        var contentIds = viewingHistory.Where(vh => vh.ContentId.HasValue).Select(vh => vh.ContentId!.Value).Distinct();
+        var contentIds = viewingHistory
+            .Where(vh => vh.ContentId.HasValue)
+            .Select(vh => vh.ContentId!.Value)
+            .Distinct()
+            .ToList(); // Materialize to avoid multiple enumerations
 
         var stats = new Dictionary<string, int>();
 
@@ -91,7 +95,8 @@ public class AnalyticsService : IAnalyticsService
             .GroupBy(vh => vh.ContentId!.Value)
             .Select(g => new { ContentId = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count)
-            .Take(count);
+            .Take(count)
+            .ToList(); // Materialize to avoid multiple enumerations
 
         var result = new Dictionary<string, int>();
         foreach (var item in contentViews)
@@ -114,7 +119,8 @@ public class AnalyticsService : IAnalyticsService
             .GroupBy(vh => vh.ChannelId!.Value)
             .Select(g => new { ChannelId = g.Key, Count = g.Count() })
             .OrderByDescending(x => x.Count)
-            .Take(count);
+            .Take(count)
+            .ToList(); // Materialize to avoid multiple enumerations
 
         var result = new Dictionary<string, int>();
         foreach (var item in channelViews)
@@ -149,7 +155,8 @@ public class AnalyticsService : IAnalyticsService
             .OrderByDescending(vh => vh.StartTime)
             .Select(vh => vh.ContentId!.Value)
             .Distinct()
-            .Take(10);
+            .Take(10)
+            .ToList(); // Materialize to avoid multiple enumerations
 
         var contents = new List<Content>();
         foreach (var contentId in contentIds)
